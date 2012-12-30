@@ -62,7 +62,7 @@
     self.healthImageURL = [NSString stringWithFormat:@"%@/images/48x48/%@",bURL,[health objectForKey:@"iconUrl"]];
 }
 
-
+// TODO: remove connection code from model
 #pragma mark NSURLConnection delegate methods
 - (NSURLRequest *)connection:(NSURLConnection *)connection
  			 willSendRequest:(NSURLRequest *)request

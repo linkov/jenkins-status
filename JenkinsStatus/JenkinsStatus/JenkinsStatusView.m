@@ -80,7 +80,7 @@ NSString * const kModuleName = @"com.SDWR.jenkins_status";
 }
 
 
-
+// TODO: move the list around the screen with 50 sec interval to prevent ghosting issues
 - (void)animateOneFrame
 {
 
