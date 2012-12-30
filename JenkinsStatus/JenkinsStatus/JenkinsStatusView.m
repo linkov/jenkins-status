@@ -7,7 +7,9 @@
 //
 
 #define PADDING 100
+#define TIGHTPADDINGTHERESHOLD 9
 #define STATUSPADDING 100
+#define PADDINGTIGHT 60
 #define TEXTPADDING 200
 #define TEXTH 25
 #define TEXTVPADDING 10
@@ -88,23 +90,24 @@ NSString * const kModuleName = @"com.SDWR.jenkins_status";
         
         for (int i =0; i<jobs.count; i++) {
             
-            JenkinsJob *j = [jobs objectAtIndex:i];
+            int dynamicStatusPadding = jobs.count<=TIGHTPADDINGTHERESHOLD ? PADDING : PADDINGTIGHT;
             
+            JenkinsJob *j = [jobs objectAtIndex:i];
             
             NSImage *statusImage = [[NSImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:j.status ]]];
             
-            NSImageView *statusImageView = [[NSImageView alloc] initWithFrame: NSMakeRect(0,0+(PADDING*i),ICONSIZE,ICONSIZE)];
+            NSImageView *statusImageView = [[NSImageView alloc] initWithFrame: NSMakeRect(0,0+(dynamicStatusPadding*i),ICONSIZE,ICONSIZE)];
             statusImageView.image = statusImage;
             [statusImage release];
             
             
             NSImage *image = [[NSImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:j.healthImageURL]]];
             
-            NSImageView *bgImageView = [[NSImageView alloc] initWithFrame: NSMakeRect(STATUSPADDING,0+(PADDING*i),ICONSIZE,ICONSIZE)];
+            NSImageView *bgImageView = [[NSImageView alloc] initWithFrame: NSMakeRect(STATUSPADDING,0+(dynamicStatusPadding*i),ICONSIZE,ICONSIZE)];
             bgImageView.image = image;
             [image release];
             
-            NSTextView *text = [[NSTextView alloc]initWithFrame:NSMakeRect(TEXTPADDING,0+(PADDING*i)+TEXTVPADDING,TEXTW,TEXTH)];
+            NSTextView *text = [[NSTextView alloc]initWithFrame:NSMakeRect(TEXTPADDING,0+(dynamicStatusPadding*i)+TEXTVPADDING,TEXTW,TEXTH)];
             text.font = [NSFont systemFontOfSize:20];
             text.string = j.name;
             text.backgroundColor = [NSColor blackColor];
@@ -167,6 +170,16 @@ NSString * const kModuleName = @"com.SDWR.jenkins_status";
     containerView = nil;
 	[serv getBase];
 }
+
+
+-(void)dealloc {
+    
+    [jobs release];
+    [serv release];
+    
+    [super dealloc];
+}
+
 
 
 

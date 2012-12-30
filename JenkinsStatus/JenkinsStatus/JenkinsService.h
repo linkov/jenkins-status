@@ -14,6 +14,5 @@
 -(id)initWithBaseURL:(NSString *)url;
 
 @property (assign) id delegate;
-@property (nonatomic,retain) NSMutableData *receivedData;
 
 @end

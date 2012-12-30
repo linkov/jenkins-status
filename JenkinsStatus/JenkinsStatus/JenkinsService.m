@@ -12,6 +12,7 @@
 @interface JenkinsService ()
 
 @property (nonatomic,retain) NSString *baseURL;
+@property (nonatomic,retain) NSMutableData *receivedData;
 
 @end
 
@@ -100,6 +101,13 @@
     [self.delegate setValue:[NSArray arrayWithArray:[self parseJSON]] forKey:@"jobs"];
     [self.delegate performSelector:@selector(setNeedsDisplay:) withObject:[NSNumber numberWithBool:YES]];
  	
+}
+
+-(void)dealloc {
+    
+    [_baseURL release];
+    [_receivedData release];
+    [super dealloc];
 }
 
 @end

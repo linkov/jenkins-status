@@ -29,7 +29,6 @@
 
 - (void)get: (NSString *)urlString {
  	
- 	NSLog ( @"GET: %@", urlString );
     NSMutableData *dt = [[NSMutableData alloc] init];
  	self.receivedData = dt;
     [dt release];
@@ -44,12 +43,7 @@
  								   initWithRequest:request
  								   delegate:self
  								   startImmediately:YES];
- 	if(!connection) {
- 		NSLog(@"connection failed :(");
- 	} else {
- 		NSLog(@"connection succeeded  :)");
- 		
- 	}
+
  	
  	[connection release];
     [request release];
@@ -89,7 +83,7 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
- 	NSLog(@"Error receiving response: %@", error);
+
     [[NSAlert alertWithError:error] runModal];
 }
 
@@ -97,5 +91,18 @@
     
     [self parseJSON];
 }
+
+
+-(void)dealloc {
+    
+    [_receivedData release];
+    [_status release];
+    [_name release];
+    [_healthImageURL release];
+    
+    [super dealloc];
+    
+}
+
 
 @end
