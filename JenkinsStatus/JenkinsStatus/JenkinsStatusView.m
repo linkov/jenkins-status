@@ -7,7 +7,7 @@
 //
 
 #define PADDING 100
-#define TIGHTPADDINGTHERESHOLD 9
+#define TIGHTPADDINGTHERESHOLD 6
 #define STATUSPADDING 100
 #define PADDINGTIGHT 60
 #define TEXTPADDING 200
@@ -86,7 +86,7 @@ NSString * const kModuleName = @"com.SDWR.jenkins_status";
 
     if (jobs.count >0) {
         
-         containerView = [[NSView alloc]initWithFrame:NSMakeRect([self bounds].size.width/2-CONTAINERVIEWW/2,[self bounds].size.height/2,CONTAINERVIEWW,jobs.count*PADDING)];
+         containerView = [[NSView alloc]initWithFrame:NSMakeRect([self bounds].size.width/2-CONTAINERVIEWW/2,[self bounds].size.height/2-jobs.count*PADDING/2,CONTAINERVIEWW,jobs.count*PADDING)];
         
         for (int i =0; i<jobs.count; i++) {
             
